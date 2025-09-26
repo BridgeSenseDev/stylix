@@ -51,8 +51,13 @@ with colors;
     border-color: #${base0D-hex} !important;
   }
 
-  .urlbarView-url {
-    color: #${base0D-hex} !important;
+  .urlbar-results {
+    max-height: 520px !important;
+  }
+
+  #urlbar-input::selection {
+    background-color: #${base0D-hex} !important
+    color: #000000 !important
   }
 
   #zenEditBookmarkPanelFaviconContainer {
