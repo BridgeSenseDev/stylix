@@ -51,7 +51,7 @@ with colors;
     border-color: #${base0D-hex} !important;
   }
 
-  .urlbar-results {
+  #urlbar-results {
     max-height: 520px !important;
   }
 
