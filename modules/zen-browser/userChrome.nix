@@ -55,6 +55,10 @@ with colors;
     max-height: 520px !important;
   }
 
+  .urlbarView-url {
+    color: #${base0D-hex} !important;
+  }
+
   #urlbar-input::selection {
     background-color: #${base0D-hex} !important;
     color: #000000 !important;
