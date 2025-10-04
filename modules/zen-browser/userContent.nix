@@ -13,6 +13,14 @@ with colors;
     }
   }
 
+  /* Text highlight color affecting all pages */
+  @-moz-document regexp("http(s)?:.*") {
+    ::selection {
+      background-color: #${base0D-hex} !important;
+      color: #${base00-hex} !important;
+    }
+  }
+
   /* Variables and styles specific to about:newtab and about:home */
   @-moz-document url("about:newtab"), url("about:home") {
 
