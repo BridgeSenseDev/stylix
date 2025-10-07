@@ -56,7 +56,7 @@ with colors;
   }
 
   #urlbar-results {
-    max-height: 416px !important;
+    max-height: 520px !important;
   }
 
   #urlbar-input::selection {
