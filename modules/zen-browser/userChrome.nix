@@ -55,6 +55,10 @@ with colors;
     color: #${base0D-hex} !important;
   }
 
+  #urlbar-results {
+    max-height: 520px !important;
+  }
+
   #urlbar-input::selection {
     background-color: #${base0D-hex} !important;
     color: #${base00-hex} !important;
