@@ -6,10 +6,7 @@
   ...
 }:
 mkTarget {
-  name = "zen-browser";
-  humanName = "Zen Browser";
-
-  extraOptions = {
+  options = {
     profileNames = lib.mkOption {
       description = "The Zen Browser profile names to apply styling on.";
       type = lib.types.listOf lib.types.str;
@@ -17,9 +14,15 @@ mkTarget {
       default = [ ];
       example = [ "default" ];
     };
+
+    enableCss = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "enables userChrome and userContent css styles for the browser";
+    };
   };
 
-  configElements = lib.optionals (options.programs ? zen-browser) [
+  config = lib.optionals (options.programs ? zen-browser) [
     (
       { cfg }:
       {
@@ -29,10 +32,7 @@ mkTarget {
       }
     )
     (
-      {
-        cfg,
-        fonts,
-      }:
+      { cfg, fonts }:
       {
         programs.zen-browser.profiles = lib.genAttrs cfg.profileNames (_: {
           settings = {
@@ -44,20 +44,19 @@ mkTarget {
       }
     )
     (
+      { cfg, colors }:
       {
-        cfg,
-        colors,
-      }:
-      {
-        programs.zen-browser.profiles = lib.genAttrs cfg.profileNames (_: {
-          settings = {
-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-          };
+        programs.zen-browser.profiles = lib.mkIf cfg.enableCss (
+          lib.genAttrs cfg.profileNames (_: {
+            settings = {
+              "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+            };
 
-          userChrome = import ./userChrome.nix { inherit colors; };
+            userChrome = import ./userChrome.nix { inherit colors; };
 
-          userContent = import ./userContent.nix { inherit colors; };
-        });
+            userContent = import ./userContent.nix { inherit colors; };
+          })
+        );
       }
     )
   ];

@@ -13,7 +13,13 @@
 
     # keep-sorted start block=yes newline_separated=yes
     base16-fish = {
-      url = "github:tomyun/base16-fish";
+      # Lock the base16-fish input to a custom patchset that cherry-picks
+      # pending patches [2], since it is currently impossible to apply patches
+      # to flake inputs [1] ("Support flake references to patches").
+      #
+      # [1]: https://github.com/NixOS/nix/issues/3920
+      # [2]: https://github.com/tomyun/base16-fish/pull/16
+      url = "github:tomyun/base16-fish/86cbea4dca62e08fb7fd83a70e96472f92574782";
       flake = false;
     };
 
@@ -24,7 +30,7 @@
 
     base16-vim = {
       # TODO: Unlock this input once [1] ("Seemingly bad parsing of whitespace
-      # in abbriviated lists (affecting stylix's handling of base16-vim)") is
+      # in abbreviated lists (affecting stylix's handling of base16-vim)") is
       # resolved, preventing us from fetching commit [2] ("fix(theme): Remove
       # illegal style attributes").
       #
@@ -42,10 +48,9 @@
     };
 
     gnome-shell = {
-      # TODO: Unlocking the input and pointing to official repository requires
-      # updating the patch:
+      # TODO: Unlocking the input requires updating the patch:
       # https://github.com/nix-community/stylix/pull/224#discussion_r1460339607.
-      url = "github:GNOME/gnome-shell/48.2";
+      url = "gitlab:GNOME/gnome-shell/gnome-49?host=gitlab.gnome.org";
       flake = false;
     };
 

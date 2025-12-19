@@ -23,7 +23,7 @@
   #             dev-systems.url = "github:nix-systems/default";
   #
   #             # keep-sorted start block=yes newline_separated=yes
-  #             flake-compat.url = "github:edolstra/flake-compat";
+  #             flake-compat.url = "github:NixOS/flake-compat";
   #
   #             git-hooks = {
   #               url = "github:cachix/git-hooks.nix";
@@ -79,7 +79,7 @@
   #             };
   #
   #             # keep-sorted start block=yes newline_separated=yes
-  #             flake-compat.url = "github:edolstra/flake-compat";
+  #             flake-compat.url = "github:NixOS/flake-compat";
   #
   #             git-hooks = {
   #               url = "github:cachix/git-hooks.nix";
@@ -130,12 +130,13 @@
     dev-systems.url = "github:nix-systems/default";
 
     # keep-sorted start block=yes newline_separated=yes
-    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.url = "github:NixOS/flake-compat";
 
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
+        gitignore.follows = "";
         nixpkgs.follows = "dev-nixpkgs";
       };
     };
@@ -150,8 +151,14 @@
       inputs = {
         flake-parts.follows = "dev-flake-parts";
         nixpkgs.follows = "dev-nixpkgs";
+        nuschtosSearch.follows = "";
         systems.follows = "dev-systems";
       };
+    };
+
+    noctalia-shell = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "dev-nixpkgs";
     };
 
     nvf = {
@@ -160,6 +167,7 @@
         nixpkgs.follows = "dev-nixpkgs";
         systems.follows = "dev-systems";
         flake-compat.follows = "";
+        flake-parts.follows = "dev-flake-parts";
       };
     };
 
@@ -174,6 +182,14 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "dev-nixpkgs";
+    };
+
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs = {
+        nixpkgs.follows = "dev-nixpkgs";
+        systems.follows = "dev-systems";
+      };
     };
 
     zen-browser = {

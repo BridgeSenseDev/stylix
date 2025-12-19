@@ -7,14 +7,8 @@
 let
   cfg = config.stylix.targets.kde;
 
-  inherit (config.lib.stylix)
-    colors
-    mkEnableTarget
-    mkEnableWallpaper
-    ;
-  inherit (config.stylix)
-    image
-    ;
+  inherit (config.lib.stylix) colors mkEnableTarget mkEnableWallpaper;
+  inherit (config.stylix) image;
 
   mergeWithImage =
     default: withImage:
@@ -165,9 +159,7 @@ let
   Name = "Stylix";
 
   wallpaperMetadata = {
-    KPlugin = {
-      inherit Id Name;
-    };
+    KPlugin = { inherit Id Name; };
   };
 
   lookAndFeelMetadata = {
@@ -257,12 +249,10 @@ let
     # The gtkconfig module copies settings from KDE to the GTK configuration.
     # This blocks Home Manager activation because the same files are already
     # managed by Stylix.
-    Module-gtkconfig = makeImmutable {
-      autoload = false;
-    };
+    Module-gtkconfig = makeImmutable { autoload = false; };
   };
 
-  kdeglobals = {
+  kdeglobals = rec {
     KDE.LookAndFeelPackage = makeImmutable Id;
 
     General = with config.stylix.fonts; rec {
@@ -274,6 +264,8 @@ let
       toolBarFont = desktopFont;
       smallestReadableFont = desktopFont;
     };
+
+    WM.activeFont = General.desktopFont;
 
     UiSettings.ColorScheme = colorschemeSlug;
   };
